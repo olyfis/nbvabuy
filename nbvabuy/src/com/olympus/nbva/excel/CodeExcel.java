@@ -733,7 +733,7 @@ public class CodeExcel extends HttpServlet {
 				aID = items[6].trim();
 				desc = items[3].trim();
 				charges = items[4].trim();
-				//System.out.println("**^^** Match: aID=" +  aID + "-- aDate=" + aDate + "-- CT=" + chargeType + "--");
+			 //System.out.println("**^^** Match: aID=" +  aID + "-- aDate=" + aDate + "-- CT=" + chargeType + "--");
 				
 				if (ctMap.containsKey(chargeType)) {
 					System.out.println("*** Match CT -- AID:" + aID +  "-- Date="  +  aDate   +  "-- CT=" + chargeType + "-- Desc=" + ctMap.get(chargeType) + "--");
@@ -941,7 +941,7 @@ public class CodeExcel extends HttpServlet {
 			// display invoice numbers and totals
 			// Read and process AgeFile
 			HashMap<String, String> tbdMap = new HashMap<String, String>();
-
+			tbdMap.clear();
 			String aDate = "";
 			String contractNum = "";
 			String aID = "";
@@ -1322,7 +1322,7 @@ public class CodeExcel extends HttpServlet {
 		// workbook = newWorkbook();
 		
 		doBuyoutLetter(workbook, FILE_NAME, tab1, excelTemplate, dateStamp, list);
-		sheet = newWorkSheet(workbook, "Asset List Report");
+		sheet = newWorkSheet(workbook, "Asset List");
 		contractHeader(workbook, sheet, contractHeaderArr);
 
 		assetHeader(workbook, sheet, assetHeaderArr);

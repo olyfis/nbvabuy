@@ -34,5 +34,6 @@
 	<classpathentry kind="lib" path="C:/Java_Dev/lib/project_jars_BuildPath/Poi_New/poi-ooxml-4.0.1.jar"/>
 	<classpathentry kind="lib" path="C:/Java_Dev/lib/project_jars_BuildPath/Poi_New/poi-ooxml-schemas-4.0.1.jar"/>
 	<classpathentry kind="lib" path="C:/Java_Dev/lib/project_jars_BuildPath/Poi_New/xmlbeans-3.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Java_Dev/lib/project_jars_BuildPath/commons-cli-1.4.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
