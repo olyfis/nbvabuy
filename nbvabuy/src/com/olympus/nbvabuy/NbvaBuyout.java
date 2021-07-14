@@ -1369,7 +1369,8 @@ public class NbvaBuyout extends HttpServlet {
 		HashMap<String, Integer> codeMapSQL = new HashMap<String, Integer>();
 		HashMap<String, ArrayList<Integer>> sqlErrMap = new HashMap<String, ArrayList<Integer>>();
 		
-		 
+		  
+
 		//HashMap<String, Double> invoiceTotalsMap = new HashMap<String, Double>();
 		HashMap<String, String> invoiceDatesMap = new HashMap<String, String>();
 		
@@ -1405,7 +1406,7 @@ public class NbvaBuyout extends HttpServlet {
 		String tag = "csvData: ";
 		
 		String logFileName = "nbvabuy.log";
-		String directoryName = "D:/Kettle/logfiles/nbva";
+		String directoryName = "D:/javalogs/logfiles/nbvabuy";
 		Handler fileHandler =  OlyLog.setAppendLog(directoryName, logFileName, LOGGER );
 		Date logDate = Olyutil.getCurrentDate();
 		String dateFmt = Olyutil.formatDate("yyyy-MM-dd hh:mm:ss.SSS");
@@ -1617,10 +1618,11 @@ public class NbvaBuyout extends HttpServlet {
 				request.getSession().setAttribute("calcTableMap", calcTableMap);
 			
 				request.getSession().setAttribute("naDate", naDate);
-				LOGGER.info(dateFmt + ": " + "------------------Processing ID: " + idVal + "-- From: " + ipAddress    +   "--");
+				String userID = (String) request.getSession().getAttribute("username");
 				
-				fileHandler.flush();
-				fileHandler.close();
+				LOGGER.info(dateFmt + ": " + "-- UserID:" +  userID   +  "-- Processing ID: " + idVal + "-- From: " + ipAddress    +   "--");
+				
+				
 				//System.out.println("***!!!*** java -- Buy - 24plus (5):" +  calcTableMap.get("5").getRoll24plus() + "--");
 				String opt = "";
 				//System.out.println("***!!!***errIDArrayRtnAZ=" + errIDArrayRtn.size()  + "-- sqlErrMap" + sqlErrMap.size() + "--");
@@ -1655,7 +1657,8 @@ public class NbvaBuyout extends HttpServlet {
 			
 			System.out.println("***===*** paramMap is null!");
 		}
-		
+		fileHandler.flush();
+		fileHandler.close();
 	}
 	
 	/****************************************************************************************************************************************************/

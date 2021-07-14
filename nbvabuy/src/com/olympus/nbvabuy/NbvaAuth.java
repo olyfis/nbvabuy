@@ -88,6 +88,7 @@ import com.olympus.olyutil.log.OlyLog;
 					request.getRequestDispatcher(dispatchJSPError).forward(request, response);
 
 				}
+				request.getSession().setAttribute("username", username);
 				fileHandler.close();
 			}
 			 

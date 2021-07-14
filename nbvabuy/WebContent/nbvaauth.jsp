@@ -29,6 +29,8 @@
 	*/
 	
 	String authToken =  (String) session.getAttribute("authToken");
+	String username =  (String) session.getAttribute("username");
+	
 	//System.out.println("***!!!*** authToken=" + authToken + "--");
 	String dispatchJSPAuthError = "auth_error.jsp";
 	

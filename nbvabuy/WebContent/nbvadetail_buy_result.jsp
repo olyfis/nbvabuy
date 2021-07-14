@@ -25,6 +25,9 @@
 	
 	int mthRem = (int) session.getAttribute("mthRem");
 	String termPlusSpan =  (String) session.getAttribute("termPlusSpan");
+	String username =  (String) session.getAttribute("username");
+	//System.out.println("*** IN RESULT JSP -- UserName=" + username + "--");
+	
 	//DecimalFormat df = new DecimalFormat("$###,##0.00");
 	String opt =  (String) session.getAttribute("opt");
 	//System.out.println("*** IN RESULT JSP");
