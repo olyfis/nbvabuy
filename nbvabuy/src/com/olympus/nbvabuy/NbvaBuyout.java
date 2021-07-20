@@ -90,7 +90,11 @@ public class NbvaBuyout extends HttpServlet {
 	/*****************************************************************************************************************************************************/
 	
 	/****************************************************************************************************************************************************/
-	private final static Logger LOGGER = Logger.getLogger(NbvaBuyout.class.getCanonicalName());
+	//private final static Logger LOGGER = Logger.getLogger(NbvaBuyout.class.getCanonicalName());
+	
+	 static Logger LOGGER = Logger.getLogger(NbvaBuyout.class.getCanonicalName());
+
+	
 	
 	// location to store file uploaded
     private static final String UPLOAD_DIRECTORY = "uploadDir";
@@ -1634,6 +1638,7 @@ public class NbvaBuyout extends HttpServlet {
 				}	
 				request.getSession().setAttribute("opt", opt);
 				request.getSession().setAttribute("sqlErrMap", sqlErrMap);
+				request.getSession().setAttribute("LOGGER", LOGGER);
 				//System.out.println("*** Dispatch to:" + dispatchJSP);
 				//System.out.println("*** Buy - 24plus (3):" +  calcTableMap.get("3").getBuy24plus() + "--");
 				//System.out.println("The size of the calcTableMap is:" + calcTableMap.size()); 

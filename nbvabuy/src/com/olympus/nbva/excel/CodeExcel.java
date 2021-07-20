@@ -44,11 +44,19 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xssf.usermodel.*;
 import com.olympus.nbva.assets.AssetData;
 import com.olympus.nbva.contracts.ContractData;
+import com.olympus.nbvabuy.NbvaBuyout;
 import com.olympus.olyutil.Olyutil;
+import com.olympus.olyutil.log.OlyLog;
+
+import java.util.logging.Handler;
+import java.util.logging.Logger;
 
 
 @WebServlet("/nbvabuyexcel")
 public class CodeExcel extends HttpServlet {
+
+	
+	 static Logger logHandle = Logger.getLogger(CodeExcel.class.getCanonicalName());
 
 	/***********************************************************************************************************************************/
 	//   Map<String, CellStyle> styles = createStyles(workbook); // return styles to Hash
@@ -124,6 +132,20 @@ public class CodeExcel extends HttpServlet {
 		XSSFWorkbook workbook = new XSSFWorkbook();
 		return workbook;
 	}
+	/***********************************************************************************************************************************/
+	public static int getRandomNumber() {
+
+		int min = 100000;
+		int max = 999999;
+
+		// Generate random int value from min to max
+		// System.out.println("Random value in int from "+min+" to "+max+ ":");
+		int random_int = (int) Math.floor(Math.random() * (max - min + 1) + min);
+		System.out.println("*** RndNum=" + random_int);
+
+		return (random_int);
+	}
+
 	/****************************************************************************************************************************************************/
 	public static HashMap<String, String> getChargeTypes() {
 		HashMap<String, String> chargeTypeMap = new HashMap<String, String>();
@@ -433,7 +455,7 @@ public class CodeExcel extends HttpServlet {
 		//System.out.println("*** End if");
 	}
 	/****************************************************************************************************************************************************/
-	public static void doBuyoutInvoice(XSSFWorkbook workbook, String tab, List<Pair<ContractData, List<AssetData> >> rtnPair, String dateStamp ) throws IOException {
+	public static void doBuyoutInvoice(XSSFWorkbook workbook, String tab, List<Pair<ContractData, List<AssetData> >> rtnPair, String dateStamp  ) throws IOException {
 
 	
 		int listArrSZ = rtnPair.size();
@@ -475,7 +497,11 @@ public class CodeExcel extends HttpServlet {
 				buy = contractData.getBuyTotal();	
 				buyOutWithTax = contractData.getBuyOutWithTax();
 			}
-			invoiceNum = agreementNum + "-" + dateToday;
+			invoiceNum = agreementNum + "-" + dateToday +  "-" + getRandomNumber();
+			
+			
+			//logHandle.info(dateStamp + ": " + "-- UserID:" +  userID   +  "-- Processing ID: " + idVal +    "--");
+			logHandle.info(dateStamp + ": " + "-- invoiceNum:" +  invoiceNum  );
 			//System.out.println("** invNum=" + invoiceNum + "--");
 			//String dFmt2 = Olyutil.formatDate(effDate, "yyyy-MM-dd", "MMMM d, yyyy");
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -763,7 +789,8 @@ public class CodeExcel extends HttpServlet {
 	/****************************************************************************************************************************************************/
 	
 	// Buyout Statement
-	public static void doInvoiceStatement(XSSFWorkbook workbook, String tab, List<Pair<ContractData, List<AssetData> >> rtnPair, String dateStamp, ArrayList<String> ageArr, HashMap<String, String> invDateMapDB ) throws IOException {
+	public static void doInvoiceStatement(XSSFWorkbook workbook, String tab, List<Pair<ContractData, 
+			List<AssetData> >> rtnPair, String dateStamp, ArrayList<String> ageArr, HashMap<String, String> invDateMapDB) throws IOException {
 
 		String assetDate = "";
 		HashMap<String, String> assetMap = new HashMap<String, String>();
@@ -1294,7 +1321,9 @@ public class CodeExcel extends HttpServlet {
 			XSSFSheet sheet = null;
 			
 			HashMap<String, String> invDateMapDB = (HashMap<String, String>) session.getAttribute("invDateMapDB");
-			
+			String logFileName = "nbvabuy.log";
+			String directoryName = "D:/javalogs/logfiles/nbvabuy";
+			Handler fileHandler =  OlyLog.setAppendLog(directoryName, logFileName, logHandle );
 			
 			//displayDataMapStr( invDateMapDB, "From database");
 		assetHeaderArr = Olyutil.readInputFile(headerFile);
@@ -1356,6 +1385,8 @@ public class CodeExcel extends HttpServlet {
 				ee.printStackTrace();
 			}
 		}
-	}
+		fileHandler.flush();
+		fileHandler.close();
+	} // End doGet()
 
-}
+} // End Class
