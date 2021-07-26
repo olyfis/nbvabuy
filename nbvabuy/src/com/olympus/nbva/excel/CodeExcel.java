@@ -226,6 +226,8 @@ public class CodeExcel extends HttpServlet {
 			}
 		}	
 		sheet.autoSizeColumn(0); 
+		
+		
 	}
 	/****************************************************************************************************************************************************/
 	public static void assetHeader(XSSFWorkbook workbook, XSSFSheet sheet, ArrayList<String> headerArr) {
@@ -453,6 +455,11 @@ public class CodeExcel extends HttpServlet {
 			//System.out.println("*** End i loop");
 		} // end if	
 		//System.out.println("*** End if");
+		
+		// Auto size columns
+		for (int columnIndex = 0; columnIndex < 11; columnIndex++) {
+            sheet.autoSizeColumn(columnIndex);
+        }
 	}
 	/****************************************************************************************************************************************************/
 	public static void doBuyoutInvoice(XSSFWorkbook workbook, String tab, List<Pair<ContractData, List<AssetData> >> rtnPair, String dateStamp  ) throws IOException {
